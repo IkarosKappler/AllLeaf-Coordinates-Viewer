@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AllLeaf Database Viewer</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="AllLeaf Database Viewer" />
+    <meta name="keywords" content="leaf, database, renderer, 2d, canvas, javascript, html5" />
+    <meta name="author" content="Ikaros Kappler" />
+    <meta name="date" content="2017-06-07" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="lib/jquery-3.2.0.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+
+  <body> 
+    <h3>AllLeaf Database Viewer</h3>
+    <br/>
+    <div id="left">
+      &rarr;<div id="breadcrumbs"></div><select id="path_select"></select>
+      <!-- <button type="button" id="loadList">Reload</button> --><br/>
+      <input type="hidden" id="name" value="Alstroemeria/02.Nonscale_xy/a1_AB_clock023.txt" size="100" />
+      <!-- <button type="button" id="reload">Reload</button><br/> -->
+    </div>
+    <div id="right"> 
+      Stats<br/>
+    </div>
+    <br/>
+
+    <canvas id="my_canvas" width="640" height="640"></canvas><br/>
+    <div id="debug"></div>
+ 
+  </body>
+</html>
