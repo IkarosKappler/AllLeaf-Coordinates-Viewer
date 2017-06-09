@@ -49,15 +49,17 @@ $( document ).ready( function() {
 	var result = [];
 	var hmargin = 20;
 	var vmargin = 20;
+	var scale = Math.max( bounds.width, bounds.height );
 	for( var i = 0; i < data.length; i++ ) {
-	    result[i] = { x : hmargin + Math.round((data[i].x-bounds.xmin)/bounds.width*(canvas_width-2*hmargin)),
-			  y : vmargin + Math.round((data[i].y-bounds.ymin)/bounds.height*(canvas_height-2*vmargin))
+	    result[i] = { x : hmargin + Math.round((data[i].x-bounds.xmin)/scale*(canvas_width-2*hmargin)),
+			  y : vmargin + Math.round((data[i].y-bounds.ymin)/scale*(canvas_height-2*vmargin))
 			};
 	}
 	return result;
     }
 
     // http://jsfiddle.net/soulwire/HbMLh/
+    // (Currently not in use)
     function catmullRom( points, ctx ) {
 	
 	var p0, p1, p2, p3, i6 = 1.0 / 6.0;
@@ -95,10 +97,16 @@ $( document ).ready( function() {
 	for( var i = 1; i < currentLeafPoints.length; i++ ) {
 	    //console.log('test');
 	    ctx.lineTo( currentLeafPoints[i].x, currentLeafPoints[i].y );
+	    // Catmull rendering is somehow foo for so many points ...
+	    //if( i >= 3 )
+	//	catmullRom( [currentLeafPoints[i-3], currentLeafPoints[i-2], currentLeafPoints[i-1], currentLeafPoints[i-0]] , ctx );
 	}
+	ctx.closePath();
 	ctx.strokeStyle = 'black';
 	ctx.lineWidth   = 1.0;
 	ctx.stroke();
+	ctx.fillStyle   = '#008828';
+	ctx.fill();
 	// Draw shape
 	//draw_shape( ctx );
 	ctx.translate(-0.5,-0.5); // Fix for the half-pixel issue
@@ -112,12 +120,6 @@ $( document ).ready( function() {
 	console.log( 'url=' + url );
 
 	$.get( { url : url,
-		 beforeSend: function (xhr) {
-		     //xhr.setRequestHeader('Access-Control-Allow-Methods', ' GET');
-		     //xhr.setRequestHeader("Content-Type",
-			//		  "application/json; charset=utf-8");
-		     //xhr.setRequestHeader("Accept", "application/json");
-		 },
 		 crossDomain: true,
 		 dataType : 'json', // THIS IS REQUIRED FOR CORS
 		 success: function(data) {
